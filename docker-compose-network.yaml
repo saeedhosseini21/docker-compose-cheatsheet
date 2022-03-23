@@ -1,0 +1,15 @@
+version: !!str 3
+
+services:
+  x:
+    image: nginx:latest
+    networks:
+      - default
+    ports:
+      - 8085:80
+      
+networks:
+  default:
+    external:
+      name: pre-existing-net
+      

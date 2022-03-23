@@ -1,0 +1,46 @@
+version: !!str 3
+
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+     - mysql
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=test
+      - PMA_PASSWORD=test
+    networks:
+      - frontend
+      - backend
+
+      
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    labels:
+      - app.docker.io/name=mysql
+      - app.docker.io/env=production
+      - app.docker.io/created-by:saeedhosseini
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  mysql_data:
+  
+networks:
+  frontend:
+  backend:
+    internal: true
+
+
+
+
